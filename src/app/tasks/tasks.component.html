@@ -1,0 +1,37 @@
+<h2>My tasks</h2>
+<!-- <div>
+  <label>Task title:
+    <input #taskTitle />
+  </label>
+  <button (click)="add(taskTitle.value); taskTitle.value=''">
+    add
+  </button>
+</div> -->
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Task title</th>
+        <th>Is done?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.isDone ? "Done" : "Not yet" }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- <ul class="tasks">
+  <li *ngFor="let task of tasks">
+    <a routerLink="/detail/{{task.id}}">
+       <span class="badge">{{task.id}}</span>
+      {{task.title}} ({{task.isDone}})
+    </a>
+    <button class="delete" title="delete task"
+    (click)="delete(task)">x</button>
+  </li>
+</ul> -->
+
+<!-- <app-task-detail [task]="selectedTask"></app-task-detail> -->
