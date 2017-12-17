@@ -10,6 +10,8 @@ import { TaskService }        from '../task.service';
 export class TasksComponent implements OnInit {
 
   tasks: Task[];
+  selectedTask: Task;
+  isNew: boolean = false;
 
   constructor(private taskService: TaskService) { }
 
@@ -17,22 +19,12 @@ export class TasksComponent implements OnInit {
     this.getTasks();
   }
 
+  selectedTaskNew(): void {
+    this.selectedTask = new Task();
+  }
+
   getTasks(): void {
     this.taskService.getTasks()
       .subscribe(tasks => this.tasks = tasks);
-  }
-
-  add(title: string): void {
-    title = title.trim();
-    if (!title) { return; }
-    this.taskService.addTask({ id:0, title, "isDone": false } as Task);
-      // .subscribe(task => {
-        // this.tasks.push(task);
-      // });
-  }
-
-  delete(task: Task): void {
-    this.tasks = this.tasks.filter(t => t !== task);
-    this.taskService.deleteTask(task).subscribe();
   }
 }

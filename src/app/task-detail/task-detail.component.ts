@@ -1,9 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Task } from '../task';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
-import { TaskService }  from '../task.service';
+import { TasksComponent }  from '../tasks/tasks.component';
 
 @Component({
   selector: 'app-task-detail',
@@ -13,30 +11,19 @@ import { TaskService }  from '../task.service';
 export class TaskDetailComponent implements OnInit {
 
   @Input() task: Task;
+  @Input() isNew: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private taskService: TaskService,
-    private location: Location
+    private tasksComponent: TasksComponent
   ) { }
 
-  ngOnInit() {
-    this.getTask();
+  ngOnInit() { }
+
+  delete(task: Task): void {
+    this.tasksComponent.tasks = this.tasksComponent.tasks.filter(obj => obj !== task);
   }
 
-  getTask(): void {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.taskService.getTask(id)
-      .subscribe(task => this.task = task);
+  add(task: Task): void {
+    this.tasksComponent.tasks.push(task);
   }
-
-  goBack(): void {
-    this.location.back();
-  }
-
-  save(): void {
-    this.taskService.updateTask(this.task)
-      .subscribe(() => this.goBack());
-  }
-
 }

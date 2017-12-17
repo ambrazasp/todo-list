@@ -1,37 +1,23 @@
 <h2>My tasks</h2>
-<!-- <div>
-  <label>Task title:
-    <input #taskTitle />
-  </label>
-  <button (click)="add(taskTitle.value); taskTitle.value=''">
-    add
-  </button>
-</div> -->
+<button class="btn btn-primary" (click)="selectedTaskNew(); isNew=true;" data-toggle="modal" data-target="#basicModal">Add new</button>
 <div class="table-responsive">
-  <table class="table">
+  <table id="tasks-table" class="table table-striped" cellspacing="0" width="100%">
     <thead>
       <tr>
         <th>Task title</th>
         <th>Is done?</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let task of tasks">
         <td>{{ task.title }}</td>
-        <td>{{ task.isDone ? "Done" : "Not yet" }}</td>
+        <td [ngClass]="task.isDone ? 'bg-success' : 'bg-danger'">{{ task.isDone ? "Done" : "Not yet" }}</td>
+        <td>
+          <a class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#basicModal"  (click)="selectedTask=task; isNew=false;"></a>
+        </td>
       </tr>
     </tbody>
   </table>
 </div>
-<!-- <ul class="tasks">
-  <li *ngFor="let task of tasks">
-    <a routerLink="/detail/{{task.id}}">
-       <span class="badge">{{task.id}}</span>
-      {{task.title}} ({{task.isDone}})
-    </a>
-    <button class="delete" title="delete task"
-    (click)="delete(task)">x</button>
-  </li>
-</ul> -->
-
-<!-- <app-task-detail [task]="selectedTask"></app-task-detail> -->
+<app-task-detail [task]="selectedTask" [isNew]="isNew"></app-task-detail>

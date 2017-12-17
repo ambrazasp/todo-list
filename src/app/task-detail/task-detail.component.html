@@ -1,13 +1,37 @@
 <div *ngIf="task">
-  <h2>{{ task.title }} Details</h2>
-  <div><span>id: </span>{{task.id}}</div>
-  <div><span>title: </span>{{task.title}}</div>
-  <div><span>is done?: </span>{{task.isDone}}</div>
-  <div>
-      <label>title:
-        <input [(ngModel)]="task.title" placeholder="title">
-      </label>
+  <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">{{ task.title ? "\""+ task.title + "\""+ " task details" : "Details" }}
+          </h4>
+        </div>
+        <div class="modal-body">
+          <div>
+            <label>Title:
+              <input [(ngModel)]="task.title" placeholder="title" required>
+            </label>
+          </div>
+          <div>
+            <label>Is done?:
+              <input type="checkbox" [(ngModel)]="task.isDone" placeholder="isDone">
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div *ngIf="isNew; then buttonsTemplateNew else buttonsTemplate"></div>
+          <ng-template #buttonsTemplateNew>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="add(task);">Add</button>
+          </ng-template>
+          <ng-template #buttonsTemplate>
+            <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="delete(task);">Delete</button>
+            <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="goBack()">go back</button>
-  <button (click)="save()">save</button>
 </div>
